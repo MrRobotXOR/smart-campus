@@ -1,0 +1,21 @@
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f5;
+}
+
+.auth-card {
+  width: 380px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #111827;
+}

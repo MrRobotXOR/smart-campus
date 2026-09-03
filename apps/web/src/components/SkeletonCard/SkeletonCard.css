@@ -1,0 +1,25 @@
+.skeleton-card{
+  height:140px;
+  border-radius:16px;
+  background:linear-gradient(
+    90deg,
+    #e5e7eb,
+    #f3f4f6,
+    #e5e7eb
+  );
+
+  background-size:200%;
+  animation:loading 1.2s infinite;
+}
+
+@keyframes loading{
+
+  from{
+    background-position:200%;
+  }
+
+  to{
+    background-position:-200%;
+  }
+
+}

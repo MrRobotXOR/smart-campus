@@ -1,0 +1,30 @@
+.approval-card{
+  background:white;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.approval-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.approve-btn{
+  background:#16a34a;
+  color:white;
+}
+
+.reject-btn{
+  background:#dc2626;
+  color:white;
+}
+
+.approve-btn,
+.reject-btn{
+  border:none;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+}

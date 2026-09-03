@@ -1,0 +1,13 @@
+.hod-header{
+  background:linear-gradient(135deg,#7c3aed,#5b21b6);
+  color:white;
+  padding:28px;
+  border-radius:18px;
+  margin-bottom:25px;
+}
+
+.approval-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}

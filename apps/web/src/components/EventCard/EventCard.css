@@ -1,0 +1,38 @@
+.event-card{
+  display:block;
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  box-shadow:0 8px 20px rgba(0,0,0,.06);
+  transition:.25s;
+}
+
+.event-card:hover{
+  transform:translateY(-4px);
+}
+
+.event-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.event-content{
+  padding:18px;
+}
+
+.club-name{
+  color:#2563eb;
+  font-size:13px;
+}
+.register-btn{
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  border-radius:10px;
+}

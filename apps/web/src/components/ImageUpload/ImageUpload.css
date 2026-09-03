@@ -1,0 +1,22 @@
+.upload-box{
+  border:2px dashed #cbd5e1;
+  border-radius:16px;
+  padding:20px;
+  text-align:center;
+  position:relative;
+  cursor:pointer;
+}
+
+.upload-box img{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.upload-box input{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  cursor:pointer;
+}

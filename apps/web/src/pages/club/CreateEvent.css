@@ -1,0 +1,34 @@
+.create-event-card{
+  max-width:720px;
+  background:white;
+  padding:30px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.event-form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-top:20px;
+}
+
+.event-form input,
+.event-form textarea{
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+}
+
+.event-form textarea{
+  min-height:120px;
+}
+
+.event-form button{
+  background:#0f766e;
+  color:white;
+  border:none;
+  padding:14px;
+  border-radius:10px;
+  cursor:pointer;
+}

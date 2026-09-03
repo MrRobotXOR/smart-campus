@@ -1,0 +1,13 @@
+.club-header{
+  background:linear-gradient(135deg,#0f766e,#115e59);
+  color:white;
+  padding:28px;
+  border-radius:18px;
+  margin-bottom:24px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}

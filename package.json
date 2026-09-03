@@ -1,9 +1,14 @@
 {
   "name": "smart-campus",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "dev": "concurrently \"pnpm --filter web dev\" \"pnpm --filter server dev\"",
+    "dev:web": "pnpm --filter web dev",
+    "dev:server": "pnpm --filter server dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,5 +22,7 @@
     }
   },
   "packageManager": "pnpm@11.25.0",
-  "type": "module"
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
 }

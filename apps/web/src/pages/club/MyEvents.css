@@ -1,0 +1,20 @@
+.events-table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.events-table th,
+.events-table td{
+  padding:16px;
+  border-bottom:1px solid #e5e7eb;
+}
+.delete-btn{
+  background:#dc2626;
+  color:white;
+  border:none;
+  padding:8px 12px;
+  border-radius:8px;
+}
