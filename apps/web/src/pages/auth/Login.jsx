@@ -37,7 +37,23 @@ function Login() {
       // Token aur user authStore me save honge
       saveAuth(data.token, data.user);
 
-      navigate("/dashboard");
+      // Role-based Redirect
+      switch (data.user.role) {
+        case "club_head":
+          navigate("/club/dashboard");
+          break;
+
+        case "hod":
+          navigate("/hod/dashboard");
+          break;
+
+        case "admin":
+          navigate("/admin/dashboard");
+          break;
+
+        default:
+          navigate("/dashboard");
+      }
     } catch (err) {
       setError(
         err.response?.data?.message || "Something went wrong"

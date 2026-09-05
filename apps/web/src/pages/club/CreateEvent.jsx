@@ -11,22 +11,21 @@ function CreateEvent() {
     description: "",
     club: "Coding Club",
     date: "",
-    venue: ""
+    venue: "",
   });
 
   const [loading, setLoading] = useState(false);
-
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState("");
   const [toast, setToast] = useState({
     message: "",
-    type: "success"
+    type: "success",
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -41,7 +40,6 @@ function CreateEvent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
 
     try {
@@ -55,15 +53,12 @@ function CreateEvent() {
         formData.append("image", image);
       }
 
-      await api.post("/events", formData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-      });
+      // Token client.js interceptor automatically bhejega
+      await api.post("/events", formData);
 
       setToast({
-        message: "Event Created Successfully",
-        type: "success"
+        message: "Event created and sent to HOD for approval",
+        type: "success",
       });
 
       setForm({
@@ -71,21 +66,21 @@ function CreateEvent() {
         description: "",
         club: "Coding Club",
         date: "",
-        venue: ""
+        venue: "",
       });
 
       setImage(null);
       setPreview("");
     } catch (err) {
       setToast({
-        message: "Something went wrong",
-        type: "error"
+        message: err.response?.data?.message || "Something went wrong",
+        type: "error",
       });
 
       console.error(err);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -101,6 +96,7 @@ function CreateEvent() {
             placeholder="Event Title"
             value={form.title}
             onChange={handleChange}
+            required
           />
 
           <textarea
@@ -108,6 +104,15 @@ function CreateEvent() {
             placeholder="Event Description"
             value={form.description}
             onChange={handleChange}
+            required
+          />
+
+          <input
+            name="club"
+            placeholder="Club Name"
+            value={form.club}
+            onChange={handleChange}
+            required
           />
 
           <input
@@ -115,6 +120,7 @@ function CreateEvent() {
             placeholder="Venue"
             value={form.venue}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -122,6 +128,7 @@ function CreateEvent() {
             name="date"
             value={form.date}
             onChange={handleChange}
+            required
           />
 
           <ImageUpload

@@ -9,7 +9,7 @@ function RoleRoute({ roles, children }) {
 
   const user = getUser();
 
-  if (!roles.includes(user.role)) {
+  if (!user || !roles.includes(user.role)) {
     return <Navigate to="/dashboard" replace />;
   }
 

@@ -12,6 +12,8 @@ import {
   getPendingEvents,
   approveEvent,
   rejectEvent,
+  updateEvent,
+  deleteEvent,
 } from "../controllers/event.controller.js";
 
 const router = express.Router();
@@ -61,6 +63,23 @@ router.post(
   roleMiddleware("club_head", "admin"),
   upload.single("image"),
   createEvent
+);
+
+// Club Head/Admin - Update Event
+router.put(
+  "/:id",
+  authMiddleware,
+  roleMiddleware("club_head", "admin"),
+  upload.single("image"),
+  updateEvent
+);
+
+// Club Head/Admin - Delete Event
+router.delete(
+  "/:id",
+  authMiddleware,
+  roleMiddleware("club_head", "admin"),
+  deleteEvent
 );
 
 export default router;

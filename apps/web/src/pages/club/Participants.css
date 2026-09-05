@@ -1,0 +1,88 @@
+/* Participants.css */
+
+.participants-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.participants-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.participants-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #111827;
+}
+
+.event-select {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.table-wrapper {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.participants-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.participants-table thead {
+  background: #2563eb;
+  color: white;
+}
+
+.participants-table th,
+.participants-table td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.participants-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.participants-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.empty-row td {
+  text-align: center;
+  color: #6b7280;
+  padding: 30px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .participants-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .participants-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

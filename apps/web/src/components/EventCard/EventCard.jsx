@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./EventCard.css";
 
 function EventCard({ event }) {
+  const navigate = useNavigate();
+
   return (
-    <Link to={`/events/${event._id}`} className="event-card">
+    <div className="event-card">
       <img
-        src={event.image || "https://placehold.co/400x220"}
+        src={`http://localhost:5000${event.image}`}
         alt={event.title}
       />
 
@@ -16,23 +18,22 @@ function EventCard({ event }) {
 
         <p>{event.venue}</p>
 
-        <small>{new Date(event.date).toLocaleDateString()}</small>
+        <small>
+          {new Date(event.date).toLocaleDateString("en-IN")}
+        </small>
 
         <small className="participant-count">
-          {event.participants || 0} Participants
+          {event.participants} Participants
         </small>
 
         <button
           className="register-btn"
-          onClick={(e) => {
-            e.preventDefault();
-            // Registration API next step me connect karenge
-          }}
+          onClick={() => navigate(`/events/${event._id}`)}
         >
-          Register
+          View Details
         </button>
       </div>
-    </Link>
+    </div>
   );
 }
 

@@ -1,27 +1,23 @@
 import express from "express";
+
 import authMiddleware from "../middleware/auth.middleware.js";
 import roleMiddleware from "../middleware/role.middleware.js";
-import {
-  registerForEvent,
-  getEventParticipants,
-} from "../controllers/registration.controller.js";
+
+import { getStudentDashboard, getHodDashboard } from "../controllers/dashboard.controller.js";
 
 const router = express.Router();
 
-// Student Register
-router.post(
-  "/:id/register",
+router.get(
+  "/",
   authMiddleware,
   roleMiddleware("student"),
-  registerForEvent
+  getStudentDashboard
 );
-
-// Club Head Participants
 router.get(
-  "/:id/participants",
+  "/hod",
   authMiddleware,
-  roleMiddleware("club_head"),
-  getEventParticipants
+  roleMiddleware("hod"),
+  getHodDashboard
 );
 
 export default router;

@@ -1,10 +1,55 @@
+import { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import StatsCard from "../../components/StatsCard/StatsCard";
+import { getMyEventsApi } from "../../api/event.api";
 import "./ClubDashboard.css";
 
-function ClubDashboard(){
+function ClubDashboard() {
 
-  return(
+  const [stats, setStats] = useState({
+    totalEvents:0,
+    participants:0,
+    pending:0
+  });
+
+  useEffect(() => {
+
+    const load = async () => {
+
+      try{
+
+        const data = await getMyEventsApi();
+
+        const total = data.events.length;
+
+        const pending = data.events.filter(
+          e=>e.status==="pending"
+        ).length;
+
+        const participants = data.events.reduce(
+          (sum,e)=>sum+(e.participants||0),
+          0
+        );
+
+        setStats({
+          totalEvents:total,
+          participants,
+          pending
+        });
+
+      }catch(error){
+
+        console.error(error);
+
+      }
+
+    };
+
+    load();
+
+  }, []);
+
+  return (
 
     <DashboardLayout>
 
@@ -18,9 +63,20 @@ function ClubDashboard(){
 
       <div className="stats-grid">
 
-        <StatsCard title="Total Events" value="8"/>
-        <StatsCard title="Participants" value="324"/>
-        <StatsCard title="Pending Approval" value="2"/>
+        <StatsCard
+          title="Total Events"
+          value={stats.totalEvents}
+        />
+
+        <StatsCard
+          title="Participants"
+          value={stats.participants}
+        />
+
+        <StatsCard
+          title="Pending Approval"
+          value={stats.pending}
+        />
 
       </div>
 

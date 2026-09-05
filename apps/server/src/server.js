@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import dashboardRoutes from "./routes/dashboard.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import eventRoutes from "./routes/event.routes.js";
 import connectDB from "./config/db.js";
@@ -33,6 +33,9 @@ console.log("📌 Mounting auth routes...");
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/registrations", registrationRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+
+
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,

@@ -13,7 +13,12 @@ import {
 import { getUser } from "../../store/authStore";
 import "./Sidebar.css";
 
-function Sidebar({ collapsed, setCollapsed, mobileOpen }) {
+function Sidebar({
+  collapsed,
+  setCollapsed,
+  mobileOpen,
+  setMobileOpen
+}) {
   const user = getUser();
 
   // Student Menu
@@ -71,6 +76,7 @@ function Sidebar({ collapsed, setCollapsed, mobileOpen }) {
       <nav className="sidebar-nav">
         {menuItems.map((item, index) => (
           <NavLink
+  onClick={() => setMobileOpen(false)}
             key={index}
             to={item.path}
             className={({ isActive }) =>

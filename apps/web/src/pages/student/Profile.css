@@ -1,0 +1,25 @@
+.profile-card{
+  max-width:500px;
+  margin:auto;
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.profile-card img{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  margin-bottom:16px;
+}
+
+.profile-info{
+  margin-top:20px;
+  text-align:left;
+}
+
+.profile-info p{
+  margin:10px 0;
+}

@@ -1,39 +1,54 @@
 import "./ApprovalCard.css";
 
-function ApprovalCard({
-  event,
-  onApprove,
-  onReject
-}) {
+function ApprovalCard({ event, onApprove, onReject }) {
 
   return (
     <div className="approval-card">
 
-      <h3>{event.title}</h3>
+      <img
+        src={
+          event.image
+            ? `http://localhost:5000${event.image}`
+            : "https://placehold.co/400x220"
+        }
+        alt={event.title}
+      />
 
-      <p>{event.club}</p>
+      <div className="approval-content">
 
-      <p>{event.venue}</p>
+        <span className="club-name">{event.club}</span>
 
-      <small>
-        {new Date(event.date).toLocaleDateString()}
-      </small>
+        <h3>{event.title}</h3>
 
-      <div className="approval-actions">
+        <p>{event.description}</p>
 
-        <button
-          className="approve-btn"
-          onClick={() => onApprove(event._id)}
-        >
-          Approve
-        </button>
+        <div className="event-meta">
 
-        <button
-          className="reject-btn"
-          onClick={() => onReject(event._id)}
-        >
-          Reject
-        </button>
+          <span>{event.venue}</span>
+
+          <span>
+            {new Date(event.date).toLocaleDateString("en-IN")}
+          </span>
+
+        </div>
+
+        <div className="approval-actions">
+
+          <button
+            className="approve-btn"
+            onClick={() => onApprove(event._id)}
+          >
+            Approve
+          </button>
+
+          <button
+            className="reject-btn"
+            onClick={() => onReject(event._id)}
+          >
+            Reject
+          </button>
+
+        </div>
 
       </div>
 

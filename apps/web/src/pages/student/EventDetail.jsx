@@ -27,6 +27,13 @@ function EventDetail() {
   const handleRegister = async () => {
     try {
       await registerEventApi(id);
+
+      // UI ko immediately update karo
+      setEvent((prev) => ({
+        ...prev,
+        isRegistered: true,
+      }));
+
       alert("Registration Successful");
     } catch (err) {
       alert(err.response?.data?.message || "Registration failed");
@@ -49,8 +56,13 @@ function EventDetail() {
 
       <p>{new Date(event.date).toLocaleDateString()}</p>
 
-      <button onClick={handleRegister}>
-        Register Now
+      <button
+        disabled={event.isRegistered}
+        onClick={handleRegister}
+      >
+        {event.isRegistered
+          ? "Already Registered"
+          : "Register Now"}
       </button>
     </DashboardLayout>
   );

@@ -1,13 +1,42 @@
 .hod-header{
-  background:linear-gradient(135deg,#7c3aed,#5b21b6);
-  color:white;
-  padding:28px;
-  border-radius:18px;
-  margin-bottom:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.hod-header h1{
+  margin:0;
+  font-size:30px;
+}
+
+.hod-header p{
+  color:#6b7280;
+  margin-top:6px;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  margin-bottom:32px;
+}
+
+.approval-section h2{
+  margin-bottom:18px;
 }
 
 .approval-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:20px;
+}
+
+.empty-card{
+  background:white;
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  color:#6b7280;
+  box-shadow:0 8px 25px rgba(0,0,0,.08);
 }

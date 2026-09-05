@@ -6,9 +6,7 @@ export const saveAuth = (token, user) => {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 };
 
-export const getToken = () => {
-  return localStorage.getItem(TOKEN_KEY);
-};
+export const getToken = () => localStorage.getItem(TOKEN_KEY);
 
 export const getUser = () => {
   const user = localStorage.getItem(USER_KEY);
@@ -20,6 +18,4 @@ export const clearAuth = () => {
   localStorage.removeItem(USER_KEY);
 };
 
-export const isAuthenticated = () => {
-  return !!getToken();
-};
+export const isAuthenticated = () => !!getToken();

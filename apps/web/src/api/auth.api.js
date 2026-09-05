@@ -10,12 +10,7 @@ export const registerApi = async (data) => {
   return response.data;
 };
 
-export const getCurrentUserApi = async (token) => {
-  const response = await api.get("/auth/me", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
+export const getCurrentUserApi = async () => {
+  const response = await api.get("/auth/me");
   return response.data;
 };

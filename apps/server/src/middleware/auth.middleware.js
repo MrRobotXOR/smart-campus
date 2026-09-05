@@ -5,10 +5,10 @@ const authMiddleware = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (!authHeader?.startsWith("Bearer ")) {
       return res.status(401).json({
         success: false,
-        message: "No token provided"
+        message: "Authentication required"
       });
     }
 
@@ -26,11 +26,14 @@ const authMiddleware = async (req, res, next) => {
     }
 
     req.user = user;
+
     next();
-  } catch {
+  } catch (error) {
+    console.error("Auth Middleware:", error.message);
+
     return res.status(401).json({
       success: false,
-      message: "Invalid token"
+      message: "Invalid or expired token"
     });
   }
 };
