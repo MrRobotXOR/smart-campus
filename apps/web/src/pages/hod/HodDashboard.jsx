@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
-import StatsCard from "../../components/StatsCard/StatsCard";
 import ApprovalCard from "./ApprovalCard";
 import api from "../../api/client";
 import "./HodDashboard.css";
 
 function HodDashboard() {
-
-  const [events, setEvents] = useState([]);
+  const [activeTab, setActiveTab] = useState("pending");
 
   const [stats, setStats] = useState({
     pending: 0,
@@ -15,15 +13,38 @@ function HodDashboard() {
     rejected: 0
   });
 
+  const [events, setEvents] = useState([]);
+
   const loadDashboard = async () => {
     try {
-      const [{ data: dashboard }, { data: pending }] = await Promise.all([
-        api.get("/dashboard/hod"),
-        api.get("/events/pending")
+      const [
+        { data: pending },
+        { data: approved },
+        { data: rejected }
+      ] = await Promise.all([
+        api.get("/events/pending"),
+        api.get("/events/approved"),
+        api.get("/events/rejected")
       ]);
 
-      setStats(dashboard.stats);
-      setEvents(pending.events);
+      setStats({
+        pending: pending.events.length,
+        approved: approved.events.length,
+        rejected: rejected.events.length
+      });
+
+      switch (activeTab) {
+        case "approved":
+          setEvents(approved.events);
+          break;
+
+        case "rejected":
+          setEvents(rejected.events);
+          break;
+
+        default:
+          setEvents(pending.events);
+      }
 
     } catch (error) {
       console.error(error);
@@ -32,7 +53,7 @@ function HodDashboard() {
 
   useEffect(() => {
     loadDashboard();
-  }, []);
+  }, [activeTab]);
 
   const approve = async (id) => {
     await api.patch(`/events/${id}/approve`);
@@ -47,48 +68,67 @@ function HodDashboard() {
   return (
     <DashboardLayout>
 
-      {/* Header */}
-
-      <div className="hod-header">
+      <div className="hod-hero">
 
         <div>
-          <h1>Department Approval Panel</h1>
-          <p>Review and manage department events.</p>
+          <h1>Department Approval Center</h1>
+          <p>
+            Review, approve and manage all department events.
+          </p>
         </div>
 
       </div>
 
-      {/* Summary Cards */}
+      <div className="hod-stats">
 
-      <div className="stats-grid">
+        <button
+          className={activeTab === "pending" ? "stat-card active pending" : "stat-card"}
+          onClick={() => setActiveTab("pending")}
+        >
+          <h2>{stats.pending}</h2>
+          <span>Pending</span>
+        </button>
 
-        <StatsCard
-          title="Pending Approval"
-          value={stats.pending}
-        />
+        <button
+          className={activeTab === "approved" ? "stat-card active approved" : "stat-card"}
+          onClick={() => setActiveTab("approved")}
+        >
+          <h2>{stats.approved}</h2>
+          <span>Approved</span>
+        </button>
 
-        <StatsCard
-          title="Approved Events"
-          value={stats.approved}
-        />
-
-        <StatsCard
-          title="Rejected Events"
-          value={stats.rejected}
-        />
+        <button
+          className={activeTab === "rejected" ? "stat-card active rejected" : "stat-card"}
+          onClick={() => setActiveTab("rejected")}
+        >
+          <h2>{stats.rejected}</h2>
+          <span>Rejected</span>
+        </button>
 
       </div>
 
-      {/* Pending Event Cards */}
-
       <section className="approval-section">
 
-        <h2>Pending Events</h2>
+        <div className="section-header">
+
+          <h2>
+            {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Events
+          </h2>
+
+          <span>{events.length} events</span>
+
+        </div>
 
         {events.length === 0 ? (
 
           <div className="empty-card">
-            <p>No pending events.</p>
+
+            <h3>No {activeTab} events</h3>
+
+            <p>
+              New events will appear here automatically.
+            </p>
+
           </div>
 
         ) : (

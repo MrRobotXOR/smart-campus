@@ -1,5 +1,4 @@
 import express from "express";
-
 import authMiddleware from "../middleware/auth.middleware.js";
 import roleMiddleware from "../middleware/role.middleware.js";
 import upload from "../middleware/upload.middleware.js";
@@ -10,6 +9,9 @@ import {
   createEvent,
   getMyEvents,
   getPendingEvents,
+  getApprovedEvents,
+  getRejectedEvents,
+  getRecentActivity,
   approveEvent,
   rejectEvent,
   updateEvent,
@@ -18,10 +20,14 @@ import {
 
 const router = express.Router();
 
-// Public - Approved Events
+/* ================= PUBLIC ================= */
+
+// Student Approved Events
 router.get("/", getEvents);
 
-// Club Head/Admin - My Events
+/* ================= CLUB HEAD ================= */
+
+// My Events
 router.get(
   "/my-events",
   authMiddleware,
@@ -29,34 +35,7 @@ router.get(
   getMyEvents
 );
 
-// HOD - Pending Events
-router.get(
-  "/pending",
-  authMiddleware,
-  roleMiddleware("hod"),
-  getPendingEvents
-);
-
-// HOD - Approve Event
-router.patch(
-  "/:id/approve",
-  authMiddleware,
-  roleMiddleware("hod"),
-  approveEvent
-);
-
-// HOD - Reject Event
-router.patch(
-  "/:id/reject",
-  authMiddleware,
-  roleMiddleware("hod"),
-  rejectEvent
-);
-
-// Public - Event Detail
-router.get("/:id", getEventById);
-
-// Club Head/Admin - Create Event
+// Create Event
 router.post(
   "/",
   authMiddleware,
@@ -65,7 +44,7 @@ router.post(
   createEvent
 );
 
-// Club Head/Admin - Update Event
+// Edit Event
 router.put(
   "/:id",
   authMiddleware,
@@ -74,12 +53,67 @@ router.put(
   updateEvent
 );
 
-// Club Head/Admin - Delete Event
+// Delete Event
 router.delete(
   "/:id",
   authMiddleware,
   roleMiddleware("club_head", "admin"),
   deleteEvent
 );
+
+/* ================= HOD ================= */
+
+// Pending
+router.get(
+  "/pending",
+  authMiddleware,
+  roleMiddleware("hod"),
+  getPendingEvents
+);
+
+// Approved
+router.get(
+  "/approved",
+  authMiddleware,
+  roleMiddleware("hod"),
+  getApprovedEvents
+);
+
+// Rejected
+router.get(
+  "/rejected",
+  authMiddleware,
+  roleMiddleware("hod"),
+  getRejectedEvents
+);
+
+// Activity
+router.get(
+  "/activity",
+  authMiddleware,
+  roleMiddleware("hod"),
+  getRecentActivity
+);
+
+// Approve
+router.patch(
+  "/:id/approve",
+  authMiddleware,
+  roleMiddleware("hod"),
+  approveEvent
+);
+
+// Reject
+router.patch(
+  "/:id/reject",
+  authMiddleware,
+  roleMiddleware("hod"),
+  rejectEvent
+);
+
+/* ================= DYNAMIC (LAST) ================= */
+
+// Event Detail
+router.get("/:id", getEventById);
 
 export default router;
