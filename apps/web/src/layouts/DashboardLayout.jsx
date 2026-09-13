@@ -5,18 +5,25 @@ import "./DashboardLayout.css";
 
 function DashboardLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
-const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <div className="dashboard-layout">
       <Sidebar
-  collapsed={collapsed}
-  setCollapsed={setCollapsed}
-  mobileOpen={mobileOpen}
-  setMobileOpen={setMobileOpen}
-/>
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+        mobileOpen={mobileOpen}
+        setMobileOpen={setMobileOpen}
+      />
 
-      <div className="dashboard-main">
-        <Navbar setMobileOpen={setMobileOpen}/>
+      <div
+        className={`dashboard-main ${
+          collapsed ? "dashboard-main-collapsed" : ""
+        }`}
+      >
+        <div className="dashboard-navbar">
+          <Navbar setMobileOpen={setMobileOpen} />
+        </div>
 
         <main className="dashboard-content">
           {children}

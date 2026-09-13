@@ -20,12 +20,14 @@ import EditEvent from "./pages/club/EditEvent";
 
 // HOD
 import HodDashboard from "./pages/hod/HodDashboard";
+import PendingEvents from "./pages/hod/PendingEvents";
+import ApprovedEvents from "./pages/hod/ApprovedEvents";
+import RejectedEvents from "./pages/hod/RejectedEvents";
 import Reports from "./pages/hod/Reports";
 
 // Route Guards
 import ProtectedRoute from "./routes/ProtectedRoute";
 import RoleRoute from "./routes/RoleRoute";
-
 
 function App() {
   return (
@@ -83,50 +85,51 @@ function App() {
       />
 
       {/* ================= CLUB HEAD ================= */}
-<Route
-  path="/club/dashboard"
-  element={
-    <RoleRoute roles={["club_head"]}>
-      <ClubDashboard />
-    </RoleRoute>
-  }
-/>
 
-<Route
-  path="/club/create-event"
-  element={
-    <RoleRoute roles={["club_head"]}>
-      <CreateEvent />
-    </RoleRoute>
-  }
-/>
+      <Route
+        path="/club/dashboard"
+        element={
+          <RoleRoute roles={["club_head"]}>
+            <ClubDashboard />
+          </RoleRoute>
+        }
+      />
 
-<Route
-  path="/club/events"
-  element={
-    <RoleRoute roles={["club_head"]}>
-      <MyEvents />
-    </RoleRoute>
-  }
-/>
+      <Route
+        path="/club/create-event"
+        element={
+          <RoleRoute roles={["club_head"]}>
+            <CreateEvent />
+          </RoleRoute>
+        }
+      />
 
-<Route
-  path="/club/edit-event/:id"
-  element={
-    <RoleRoute roles={["club_head"]}>
-      <EditEvent />
-    </RoleRoute>
-  }
-/>
+      <Route
+        path="/club/events"
+        element={
+          <RoleRoute roles={["club_head"]}>
+            <MyEvents />
+          </RoleRoute>
+        }
+      />
 
-<Route
-  path="/club/participants"
-  element={
-    <RoleRoute roles={["club_head"]}>
-      <Participants />
-    </RoleRoute>
-  }
-/>
+      <Route
+        path="/club/edit-event/:id"
+        element={
+          <RoleRoute roles={["club_head"]}>
+            <EditEvent />
+          </RoleRoute>
+        }
+      />
+
+      <Route
+        path="/club/participants"
+        element={
+          <RoleRoute roles={["club_head"]}>
+            <Participants />
+          </RoleRoute>
+        }
+      />
 
       {/* ================= HOD ================= */}
 
@@ -135,6 +138,33 @@ function App() {
         element={
           <RoleRoute roles={["hod"]}>
             <HodDashboard />
+          </RoleRoute>
+        }
+      />
+
+      <Route
+        path="/hod/pending"
+        element={
+          <RoleRoute roles={["hod"]}>
+            <PendingEvents />
+          </RoleRoute>
+        }
+      />
+
+      <Route
+        path="/hod/approved"
+        element={
+          <RoleRoute roles={["hod"]}>
+            <ApprovedEvents />
+          </RoleRoute>
+        }
+      />
+
+      <Route
+        path="/hod/rejected"
+        element={
+          <RoleRoute roles={["hod"]}>
+            <RejectedEvents />
           </RoleRoute>
         }
       />

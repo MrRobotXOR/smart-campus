@@ -1,25 +1,81 @@
+/* ===== Sidebar ===== */
+
 .sidebar{
   width:250px;
+  height:100vh;
   background:#111827;
-  color:white;
-  padding:20px;
-  transition:.3s;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  padding:18px 14px;
+  transition:all .3s ease;
+  overflow:hidden;
 }
 
 .sidebar.collapsed{
   width:80px;
 }
 
+/* ===== Toggle ===== */
+
 .toggle-btn{
-  background:none;
+  width:42px;
+  height:42px;
   border:none;
-  color:white;
-  font-size:20px;
+  background:#1f2937;
+  color:#fff;
+  border-radius:10px;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  transition:.25s;
+}
+
+.toggle-btn:hover{
+  background:#2563eb;
+}
+
+/* ===== Logo ===== */
+
+.logo-wrapper{
+  margin:24px 0 30px;
+  text-align:center;
 }
 
 .logo{
-  margin:25px 0;
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.logo-role{
+  display:block;
+  margin-top:6px;
+  font-size:11px;
+  color:#9ca3af;
+  letter-spacing:1px;
+}
+
+/* ===== Navigation ===== */
+
+.sidebar-nav{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  flex:1;
+  overflow-y:auto;
+}
+
+.sidebar-nav::-webkit-scrollbar{
+  width:4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb{
+  background:#374151;
+  border-radius:10px;
 }
 
 .menu-item{
@@ -27,40 +83,134 @@
   align-items:center;
   gap:12px;
   padding:12px;
-  border-radius:8px;
-  cursor:pointer;
+  border-radius:10px;
+  text-decoration:none;
+  color:#fff;
+  transition:.25s;
 }
 
 .menu-item:hover{
   background:#1f2937;
-}
-.sidebar-nav{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.menu-item{
-  text-decoration:none;
-  color:white;
 }
 
 .menu-item.active{
   background:#2563eb;
 }
 
-@media(max-width:768px){
+/* Icon */
+
+.menu-icon{
+  min-width:24px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:18px;
+}
+
+/* Label */
+
+.menu-label{
+  flex:1;
+  white-space:nowrap;
+  font-size:15px;
+}
+
+/* Badge */
+
+.menu-badge{
+  min-width:22px;
+  height:22px;
+  padding:0 6px;
+  border-radius:999px;
+  background:#ef4444;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:600;
+}
+
+/* ===== Collapsed ===== */
+
+.sidebar.collapsed .logo-role,
+.sidebar.collapsed .menu-label,
+.sidebar.collapsed .menu-badge,
+.sidebar.collapsed .sidebar-footer{
+  display:none;
+}
+
+.sidebar.collapsed .logo{
+  font-size:20px;
+}
+
+.sidebar.collapsed .menu-item{
+  justify-content:center;
+}
+
+/* ===== Footer ===== */
+
+.sidebar-footer{
+  padding-top:18px;
+  border-top:1px solid #1f2937;
+  color:#9ca3af;
+  font-size:12px;
+  word-break:break-word;
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width:768px){
 
   .sidebar{
     position:fixed;
-    left:-260px;
     top:0;
-    height:100%;
-    z-index:999;
+    left:-260px;
+    z-index:1000;
+    box-shadow:6px 0 18px rgba(0,0,0,.35);
   }
 
   .sidebar.mobile-open{
     left:0;
   }
 
+  .sidebar.collapsed{
+    width:250px;
+  }
+
+  .sidebar.collapsed .logo-role,
+  .sidebar.collapsed .menu-label,
+  .sidebar.collapsed .menu-badge,
+  .sidebar.collapsed .sidebar-footer{
+    display:block;
+  }
+
+  .sidebar.collapsed .menu-item{
+    justify-content:flex-start;
+  }
+}
+
+/* ===== Small Phones ===== */
+
+@media (max-width:420px){
+
+  .sidebar{
+    width:230px;
+    left:-240px;
+  }
+
+  .sidebar.mobile-open{
+    left:0;
+  }
+
+}
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  height:100vh;
+  z-index:1000;
+}
+
+.sidebar.collapsed{
+  width:80px;
 }

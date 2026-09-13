@@ -7,7 +7,9 @@ import {
   FaUser,
   FaPlusCircle,
   FaUsers,
-  FaClipboardList
+  FaClipboardList,
+  FaCheckCircle,
+  FaTimesCircle
 } from "react-icons/fa";
 
 import { getUser } from "../../store/authStore";
@@ -21,36 +23,32 @@ function Sidebar({
 }) {
   const user = getUser();
 
-  // Student Menu
-  const studentMenu = [
-    { icon: <FaHome />, label: "Dashboard", path: "/dashboard" },
-    { icon: <FaCalendarAlt />, label: "Events", path: "/events" },
-    { icon: <FaBell />, label: "Notifications", path: "/notifications" },
-    { icon: <FaUser />, label: "Profile", path: "/profile" }
-  ];
+  // Reusable role-based navigation
+  const menus = {
+    student: [
+      { icon: <FaHome />, label: "Dashboard", path: "/dashboard" },
+      { icon: <FaCalendarAlt />, label: "Events", path: "/events" },
+      { icon: <FaBell />, label: "Notifications", path: "/notifications" },
+      { icon: <FaUser />, label: "Profile", path: "/profile" }
+    ],
 
-  // Club Head Menu
-  const clubMenu = [
-    { icon: <FaHome />, label: "Dashboard", path: "/club/dashboard" },
-    { icon: <FaPlusCircle />, label: "Create Event", path: "/club/create-event" },
-    { icon: <FaCalendarAlt />, label: "My Events", path: "/club/events" },
-    { icon: <FaUsers />, label: "Participants", path: "/club/participants" }
-  ];
+    club_head: [
+      { icon: <FaHome />, label: "Dashboard", path: "/club/dashboard" },
+      { icon: <FaPlusCircle />, label: "Create Event", path: "/club/create-event" },
+      { icon: <FaCalendarAlt />, label: "My Events", path: "/club/events" },
+      { icon: <FaUsers />, label: "Participants", path: "/club/participants" }
+    ],
 
-  // HOD Menu
-  const hodMenu = [
-    { icon: <FaHome />, label: "Dashboard", path: "/hod/dashboard" },
-    { icon: <FaClipboardList />, label: "Pending Events", path: "/hod/dashboard" },
-    { icon: <FaCalendarAlt />, label: "Reports", path: "/hod/reports" }
-  ];
+    hod: [
+      { icon: <FaHome />, label: "Dashboard", path: "/hod/dashboard" },
+      { icon: <FaClipboardList />, label: "Pending", path: "/hod/pending" },
+      { icon: <FaCheckCircle />, label: "Approved", path: "/hod/approved" },
+      { icon: <FaTimesCircle />, label: "Rejected", path: "/hod/rejected" },
+      { icon: <FaCalendarAlt />, label: "Reports", path: "/hod/reports" }
+    ]
+  };
 
-  // Role-wise Menu
-  const menuItems =
-    user?.role === "club_head"
-      ? clubMenu
-      : user?.role === "hod"
-      ? hodMenu
-      : studentMenu;
+  const menuItems = menus[user?.role] || menus.student;
 
   return (
     <aside
@@ -62,6 +60,7 @@ function Sidebar({
           : "sidebar"
       }
     >
+      {/* Toggle */}
       <button
         className="toggle-btn"
         onClick={() => setCollapsed(!collapsed)}
@@ -69,25 +68,57 @@ function Sidebar({
         <FaBars />
       </button>
 
-      <h2 className="logo">
-        {collapsed ? "SC" : "Smart Campus"}
-      </h2>
+      {/* Logo */}
+      <div className="logo-wrapper">
+        <h2 className="logo">
+          {collapsed ? "SC" : "Smart Campus"}
+        </h2>
 
+        {!collapsed && (
+          <span className="logo-role">
+            {user?.role?.replace("_", " ").toUpperCase()}
+          </span>
+        )}
+      </div>
+
+      {/* Navigation */}
       <nav className="sidebar-nav">
-        {menuItems.map((item, index) => (
+        {menuItems.map((item) => (
           <NavLink
-  onClick={() => setMobileOpen(false)}
-            key={index}
+            key={item.path}
             to={item.path}
+            onClick={() => setMobileOpen(false)}
             className={({ isActive }) =>
               isActive ? "menu-item active" : "menu-item"
             }
           >
-            <span>{item.icon}</span>
-            {!collapsed && <span>{item.label}</span>}
+            <span className="menu-icon">
+              {item.icon}
+            </span>
+
+            {!collapsed && (
+              <>
+                <span className="menu-label">
+                  {item.label}
+                </span>
+
+                {item.badge !== undefined && (
+                  <span className="menu-badge">
+                    {item.badge}
+                  </span>
+                )}
+              </>
+            )}
           </NavLink>
         ))}
       </nav>
+
+      {/* Footer */}
+      {!collapsed && (
+        <div className="sidebar-footer">
+          <small>{user?.email}</small>
+        </div>
+      )}
     </aside>
   );
 }

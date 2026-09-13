@@ -1,21 +1,101 @@
+/* ==========================================
+   Premium Dashboard Layout
+   ChatGPT / Linear / Vercel Style
+========================================== */
+
+html,
+body,
+#root{
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+}
+
+*{
+  box-sizing:border-box;
+}
+
 .dashboard-layout{
   display:flex;
-  min-height:100vh;
-  background:#f8fafc;
+  width:100%;
+  height:100vh;
+  background:#f5f7fb;
 }
+
+/* ==========================================
+   Main Area
+========================================== */
 
 .dashboard-main{
   flex:1;
+  margin-left:250px;
+  height:100vh;
   display:flex;
   flex-direction:column;
+  transition:margin-left .3s ease;
+  overflow:hidden;
 }
+
+/* Sidebar collapsed */
+
+.dashboard-main-collapsed{
+  margin-left:80px;
+}
+
+/* ==========================================
+   Sticky Navbar
+========================================== */
+
+.dashboard-navbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#f5f7fb;
+  backdrop-filter:blur(14px);
+}
+
+/* ==========================================
+   Scrollable Content
+========================================== */
 
 .dashboard-content{
-  padding:30px;
-  overflow:auto;
+  flex:1;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:28px;
+  scroll-behavior:smooth;
 }
 
+/* Premium Scrollbar */
+
+.dashboard-content::-webkit-scrollbar{
+  width:8px;
+}
+
+.dashboard-content::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb{
+  background:#cbd5e1;
+  border-radius:999px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb:hover{
+  background:#94a3b8;
+}
+
+/* ==========================================
+   Mobile
+========================================== */
+
 @media(max-width:768px){
+
+  .dashboard-main,
+  .dashboard-main-collapsed{
+    margin-left:0;
+  }
 
   .dashboard-content{
     padding:18px;
